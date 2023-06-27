@@ -1,0 +1,66 @@
+<div class="tile is-vertical is-child">
+    <article class="media">
+        <div class="card">
+            <div class="card-image" style="width: 300px;">
+                <figure class="image is-300x300">
+                    <img src="{{shot.shot_pic.url}}" alt="Placeholder image">
+                </figure>
+            </div>
+            <div class="card-content">
+                <div class="media">
+                    <div class="media-left">
+                        {% if shot.author.userprofile_set.all.0.user_pfp %}
+                        <figure class="image is-48x48">
+    
+                            <img src="{{shot.author.userprofile_set.all.0.user_pfp.url}}" alt="Placeholder image">
+                        </figure>
+                        {%endif %}
+                    </div>
+                    <div class="media-content">
+                        <p class="title is-4"><a href="{% url 'shot:author' shot.author.id %}">{{shot.author.username}}</a>
+                        </p>
+                        <p class="subtitle is-6">@{{shot.author.username}}</p>
+                    </div>
+                </div>
+    
+                <div class="content">
+                    {{shot.shot_text}}
+                    <br>
+                    <br>
+                    <nav class="level is-mobile">
+                        <div class="level-left">
+                            {% if shot.author.username == request.user.username %}
+                            <a class="level-item" aria-label="bin" href="{% url 'shot:delete' shot.id%}">
+                                <span class="icon is-small">
+                                    <i class="fa-solid fa-trash" aria-hidden="true"></i>
+                                </span>
+                            </a>&nbsp;
+                            {% endif %}
+                            <a class="level-item" aria-label="reply" href="{% url 'shot:post_comment' shot.id %}">
+                                <span class="icon is-small">
+                                    <i class="fas fa-reply" aria-hidden="true"></i>
+                                </span>
+                            </a>&nbsp;
+                            {% if request.user not in shot.likers.all %}
+                            <a class="level-item" aria-label="like" href="/shot/like/{{shot.id}}">
+                                {{shot.likers.all|length}}&nbsp;
+                                <span class="icon is-small">
+                                    <i class="fa-solid fa-thumbs-up" aria-label="like"></i>
+                                </span>
+                            </a>
+                            {% else %}
+                            {{shot.likers.all|length}}&nbsp;
+                            <a class="level-item" aria-label="like" href="/shot/unlike/{{shot.id}}">
+                                <span class="icon is-small">
+                                    <i class="fa-solid fa-thumbs-down" aria-label="unlike"></i>
+                                </span>
+                            </a>
+                            {% endif %}
+                        </div>
+                    </nav>
+                </div>
+                <br>
+            </div>
+        </div>
+    </article>
+</div>

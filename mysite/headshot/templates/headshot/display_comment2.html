@@ -1,0 +1,76 @@
+<div class="shotbox">
+    <h3><a href="{% url 'shot:author' comment.comment_author.id %}">{{comment.comment_author.username}}</a></h3>
+    <p>{{comment.comment_text}} </p>
+    <img src="{{comment.comment_pic.url}}" style="max-width: 20%;" style="max-height: 30%;" >
+    <br>
+    {% if request.user not in comment.likers_comment.all %}
+        <a href="{% url 'shot:like_comment' comment.id %}">Like</a>
+    {% else %}
+        <a href="{% url 'shot:unlike_comment' comment.id %}">Unlike</a>
+    {% endif %}
+    ({{comment.likers_comment.all|length}})
+
+    {% if comment.comment_author.username == request.user.username %}
+        <a href="{% url 'shot:delete_comment' comment.id %}">Delete</a>
+    {% endif %}
+    <br>
+</div>
+
+
+
+
+
+
+<div class="column">
+    <article class="media">
+        <div class="card">
+            <div class="card-image" style="width: 300px;">
+                <figure class="image is-300x300">
+                    <img src="{{comment.comment_pic.url}}" alt="Placeholder image">
+                </figure>
+            </div>
+            <div class="card-content">
+                <div class="media">
+                    <div class="media-content">
+                        <p class="title is-4"><a href="{% url 'shot:author' comment.comment_author.id %}">{{comment.comment_author.username}}</a>
+                        </p>
+                        <p class="subtitle is-6">@{{comment.comment_author.username}}</p>
+                    </div>
+                </div>
+    
+                <div class="content">
+                    {{shot.shot_text}}
+                    <br>
+                    <br>
+                    <nav class="level is-mobile">
+                        <div class="level-left">
+                            {% if comment.comment_author.username == request.user.username %}
+                            <a class="level-item" aria-label="bin" href="{% url 'shot:delete_comment' comment.id%}">
+                                <span class="icon is-small">
+                                    <i class="fa-solid fa-trash" aria-hidden="true"></i>
+                                </span>
+                            </a>&nbsp;        
+                            {% endif %}
+                            {% if request.user not in comment.likers_comment.all %}
+                            <a class="level-item" aria-label="like" href="{% url 'shot:like_comment' comment.id %}">
+                                ({{comment.likers_comment.all|length}})&nbsp;
+                                <span class="icon is-small">        
+                                    <i class="fa-solid fa-thumbs-up" aria-label="like"></i>
+                                </span>
+                            </a>
+                            {% else %}
+                            <a class="level-item" aria-label="unlike" href="{% url 'shot:unlike_comment' comment.id %}">
+                                ({{comment.likers_comment.all|length}})&nbsp;
+                                <span class="icon is-small">
+                                    <i class="fa-solid fa-thumbs-down" aria-label="unlike"></i>
+                                </span>
+                            </a>
+                            {% endif %}
+                        </div>
+                    </nav>
+                </div>
+                <br>
+            </div>
+        </div>
+    </article>
+</div>

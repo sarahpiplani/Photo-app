@@ -1,0 +1,41 @@
+<nav class="navbar is-transparent">
+  <div class="navbar-brand">
+    <a class="navbar-item" href="/shot/">
+      {% load static %} 
+      <img src="{% static 'C:/Users/Sarah/Pictures/Screenshots/shotlogo.png' %}" alt="Headshot" width="112" height="28">
+    </a>
+    <div class="navbar-burger" data-target="navbarExampleTransparentExample">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </div>
+
+  <div id="navbarExampleTransparentExample" class="navbar-menu">
+    <div class="navbar-start">
+      <a class="navbar-item" href="/shot/">
+        Home
+      </a>
+      <a class="navbar-item" href="/shot/popular">
+        Popular
+      </a>
+      <form action="{% url 'shot:search' %}" method="get">
+        <div class="navbar-item">
+          <input class="input is-rounded" type="text" required placeholder="Search" id="shot" name="search" style="width: 50vw;">
+        </div>
+        <div class="navbar-item">
+          <input type="submit" value="Search" hidden>
+        </div>
+      </form>
+      
+      <a class="navbar-item" href="/shot/post">
+        Post
+      </a>
+
+      <a class="navbar-item" href="/shot/log_out">
+        Logout
+      </a>
+
+  </div>
+  </div>
+</nav>

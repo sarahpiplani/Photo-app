@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+
+<head></head>
+<title>Login sign-up</title>
+
+<html>
+
+<body>
+
+    {% if messages %}
+        {%for message in messages%}
+            {{message}}
+        {% endfor %}
+    {% endif %}
+
+    <h1>Login and sign-up page :)</h1>
+
+    <h2>Login</h2>
+    <form action="{% url 'shot:logon' %}" method=post>
+        {% csrf_token %}
+        <label for="username">Username:</label><br>
+        <input type="text" id="username" name="username"><br>
+        <label for="password">Password:</label><br>
+        <input type="password" id="password" name="password">
+        
+        <p><input type="submit" value="Login"></p>
+    </form>
+
+
+    <h3>Don't have an account? Sign-up for free now!</h3>   
+    <h2>Sign-up</h2>
+    <form enctype="multipart/form-data" action="{% url 'shot:signup' %}" method=post>
+        {% csrf_token %}
+        <label for="username">Username:</label><br>
+        <input type="text" id="username" name="username"><br>
+        <label for="password">Password:</label><br>
+        <input type="password" id="password" name="password"><br>
+        <label for="image">Profile picture:</label><br>
+        <input type="file" id="user_pfp" name="user_pfp" accept="image/*" required><br>
+        <p><input type="submit" value="Sign-up"></p>
+    </form>
+
+
+</body>
+
+</html>  

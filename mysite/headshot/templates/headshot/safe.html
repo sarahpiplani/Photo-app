@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+    <script src="https://kit.fontawesome.com/ecc259b3ee.js" crossorigin="anonymous"></script>
+
+    <title>Shot</title>
+</head>
+
+<body>
+  
+<section class="section">
+        <h1 class="title is-1 is-spaced">Welcome {{request.user}}</h1>
+
+
+        <form method="post" enctype="multipart/form-data" action="{% url 'shot:post_shot' %}">
+            {% csrf_token %}
+            <p>
+            <div class="file has-name">
+                <label class="file-label">
+                    <input class="file-input" type="file" id="shot_pic" name="shot_pic" accept="image/*" required>
+                    <span class="file-cta">
+                        <span class="file-icon">
+                            <i class="fas fa-upload"></i>
+                        </span>
+                        <span class="file-label">
+                            Post your shot
+                        </span>
+                    </span>
+                </label>
+            </div>
+            </p>
+            <br>
+            <p>
+            <div class="field">
+                <label class="label">Description</label>
+                <div class="control">
+                    <textarea class="textarea is-link"  placeholder="Add a description to go with your shot" name="shot_text"
+                        id="shot_text"></textarea>
+                </div>
+            </div>
+            </p>
+            <div class="field is-grouped">
+                <div class="control">
+                    <button class="button is-link" type="submit">Upload</button>
+                </div>
+            </div>
+        </form>
+    </section>
+
+    <section class="section">
+        <form action="{% url 'shot:search' %}" method="get">
+            <label for="shot">
+                <h2>Search:</h2>
+            </label>
+            <p><input type="text" required placeholder="Search here" id="shot" name="search"></p>
+            <input type="submit" value="Search">
+        </form>
+    </section>
+
+
+    <section class="section">
+        {% include 'headshot/display_shots.html' %}
+    </section>
+
+    <section class="section">
+        <h2>Logout</h2>
+        <form action="{% url 'shot:log_out' %}" method=post>
+            {% csrf_token %}
+            <p><input type="submit" value="Logout"></p>
+        </form>
+    </section>
+
+</body>
+
+</html>
