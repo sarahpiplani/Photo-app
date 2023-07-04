@@ -117,7 +117,7 @@ def hashtag(request, hashtag_text):
         hashtag = Hashtag.objects.get(hashtag_text=hashtag_text)
     except:
         return redirect('shot:index')
-    context = {'shot': hashtag_text, 'shots':hashtag.shots.all()}
+    context = {'hashtag_text': hashtag_text, 'shots':hashtag.shots.all()}
     print(context)
     return render(request, 'headshot/hashtag.html', context)
 
@@ -130,7 +130,7 @@ def mention(request, mention_text):
             shots.append(mention.shot)
     except:
         return redirect('shot:index')
-    context = {'shot': mention_text, 'shots':shots}
+    context = {'mention_text': mention_text, 'shots':shots}
     return render(request, 'headshot/mention.html', context)
 
 def post_hashtag_mention(text, shot):
